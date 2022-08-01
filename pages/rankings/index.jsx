@@ -1,4 +1,5 @@
-import FirebaseFirestoreService from '../lib/FirebaseFirestoreService';
+import Link from 'next/link';
+import FirebaseFirestoreService from '../../lib/FirebaseFirestoreService';
 
 export const getStaticProps = async () => {
   let results = [];
@@ -6,11 +7,12 @@ export const getStaticProps = async () => {
     const querySnapshot = await FirebaseFirestoreService.readDocuments({
       collection: 'results',
       orderByField: 'rounds',
-      orderByDirection: 'desc',
+      orderByDirection: 'asc',
       perPage: '5',
     });
     querySnapshot.forEach((doc) => {
       results.push({
+        id: doc.id,
         username: doc.data().username,
         rounds: doc.data().rounds,
         date: doc.data().date,
@@ -20,7 +22,6 @@ export const getStaticProps = async () => {
     console.log('Error getting documents: ', error);
   }
 
-  console.log('regenerated');
   return {
     props: {
       results,
@@ -29,20 +30,8 @@ export const getStaticProps = async () => {
   };
 };
 
-// export const getStaticPaths = async (ctx) => {
-//   return {
-//     paths: [
-//       {
-//         params: [{ params: results }],
-//       },
-//     ],
-//     fallback: true,
-//   };
-// };
-
-export default function results({ results = []}) {
+export default function ranking({ results = []}) {
   results.map((res) => {
-    console.log(res.username);
   });
   return (
     <div className="results-container">
@@ -51,6 +40,7 @@ export default function results({ results = []}) {
         <div key={res.date}>
             <h2>#{i + 1}</h2> 
             <p><span className='results-user'>{res.username}</span> has won the game within {res.rounds} rounds!</p>
+            <Link href={`/rankings/${res.id}`} >Watch full result</Link>
         </div>
       ))}
     </div>

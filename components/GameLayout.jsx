@@ -1,15 +1,22 @@
-import Link from 'next/link';
-import Router from 'next/router';
-import { useRef, useState } from 'react';
-import FirebaseFirestoreService from '../lib/FirebaseFirestoreService';
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react"
+
 
 export default function GameLayout() {
   const [userHealth, setUserHealth] = useState(100);
   const [monsterHealth, setMosterHealth] = useState(100);
   const [rounds, setRounds] = useState(0);
   const [roundsToSpecial, setRoundsToSpecial] = useState(0);
-  const [result, setResult] = useState(null);
 
+  const router = useRouter();
+
+  const displayResult = (result) => {
+    const route = {pathname: `/${result}`, query: {
+      rounds
+    }}
+    router.push(route)
+  }
 
   // Set the controllers to mannage the game behavior
   const handleAction = (action) => {
@@ -53,11 +60,11 @@ export default function GameLayout() {
   };
 
   const lose = () => {
-    setResult('lose');
+    displayResult('lose')
   };
 
   const win = () => {
-    setResult('win');
+    displayResult('win')
   };
 
   const playAgain = () => {
@@ -69,9 +76,7 @@ export default function GameLayout() {
   };
 
   const specialActive = roundsToSpecial >= 3 ? 'active' : false;
-  return result ? (
-    <FinalScreen rounds={rounds} result={result} playAgain={playAgain} />
-  ) : (
+  return  (
     <div className="game__container">
       <div className="game__healthbar-container">
         <div className="game__healthbar game__healthhbar-user">
@@ -90,6 +95,9 @@ export default function GameLayout() {
           <strong className="game__healthbar-value">Monster: {monsterHealth}%</strong>
         </div>
       </div>
+
+      <h1>Current round</h1>
+      <h1>{rounds}</h1>
 
       <div className="game__controllers">
         <button
@@ -119,69 +127,6 @@ export default function GameLayout() {
         </button>
         <button onClick={lose} className="btn btn-surrender">Surrender</button>
       </div>
-    </div>
-  );
-}
-
-function FinalScreen({ result, playAgain, rounds }) {
-  const [popup, setPopup] = useState(false);
-
-  const username = useRef(null);
-
-  const publishResult = async (rounds, username) => {
-    const newResult = {
-      date: Date.now(),
-      rounds,
-      username,
-    };
-    try {
-      await FirebaseFirestoreService.createDocument('results', newResult);
-      alert('Result uploaded successfully');
-      Router.push('/results');
-    } catch (error) {
-      alert('There was a problem uploading your result, try again later');
-      throw error;
-    }
-  };
-
-  const handleClick = () => {
-    if (popup === true) {
-      if (username.current.value.length > 3) return publishResult(rounds, username.current.value);
-      else return alert('username must be at least 3 character long');
-    }
-    if (!popup) return setPopup(!popup);
-  };
-
-  return (
-    <div className={result}>
-      <h1>You {result}!</h1>
-      {result === 'win' ? (
-        <div>
-          <p>You have won in {rounds} rounds!</p>
-          <button onClick={() => handleClick()}>Publish your Result</button>
-        </div>
-      ) : null}
-      {popup ? (
-        <div className="popup">
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            name="username"
-            placeholder="Your username"
-            ref={username}
-            onChange={() => console.log(username.current.value)}
-          />
-        </div>
-      ) : null}
-
-      <button
-        onClick={() => {
-          playAgain();
-        }}
-      >
-        Play again!
-      </button>
-      <Link href={'/results'}>Watch top results</Link>
     </div>
   );
 }
