@@ -1,0 +1,17 @@
+.button-play-again{
+    margin-top: 2rem;
+    color: $color-white;
+    background-color: $color-primary;
+    padding: 1rem;
+    text-decoration: none;
+    transition: all .3s;
+    border-radius: .5rem;
+    &:hover{
+        background-color: $color-primary-dark;
+        transform: translateY(-.3rem);
+    }
+
+    &:active{
+        transform: translateY(-.1rem);
+    }
+}

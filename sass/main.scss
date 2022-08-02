@@ -1,16 +1,18 @@
 // @import "abstracts/functions";
 // @import "abstracts/mixins";
-@import "abstracts/variables";
+@import 'abstracts/variables';
 
 // Base
 
-@import "base/base";
-@import "base/typography";
+@import 'base/base';
+@import 'base/typography';
 // @import "base/animations";
-// @import "base/utilities";
+@import "base/utilities";
 
 // Components
-@import "components/game"
+@import 'components/game';
+@import 'components/result';
+@import 'components/ranking';
 
 // Layout
 // @import "layout/header";
@@ -18,4 +20,3 @@
 // Pages
 
 // @import "pages/home";
-

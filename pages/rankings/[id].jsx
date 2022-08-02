@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import FirebaseFirestoreService from '../../lib/FirebaseFirestoreService';
 
 export const getStaticProps = async ({ params }) => {
@@ -5,7 +6,6 @@ export const getStaticProps = async ({ params }) => {
   const res = await FirebaseFirestoreService.readDocument('results', id);
   const { username, rounds, date } = res.data();
   const data = { username, rounds, date };
-  console.log(data, 'this is a data console.log()');
   return {
     props: {
       data,
@@ -42,8 +42,12 @@ export default function SingleResult({ data }) {
   const day = date.getDate();
   const dateString = `${month}-${day}-${year}`;
   return (
-    <div>
-      {data.username} has won in {data.rounds} at {dateString}
+
+    <div className='single--ranking-container'> 
+      <p className='single--ranking-content'> <span className='single--ranking-user'>{data.username}</span> has won in <span className="single--ranking-rounds">{data.rounds}</span> at <span className='single--ranking-date' >{dateString}</span></p>
+      <Link href={'/'}>
+        <a className='button-play-again'>Play again</a>
+      </Link>
     </div>
   );
 }

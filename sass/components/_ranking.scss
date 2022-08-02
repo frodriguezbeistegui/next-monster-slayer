@@ -1,0 +1,85 @@
+.rankings {
+  &-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: $color-white;
+    color: $color-dark;
+    margin: 20rem 10rem;
+    padding: 4rem 2rem;
+    border-radius: 3rem;
+  }
+  &-title {
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    color: $color-dark;
+  }
+}
+
+.ranking {
+  &-container {
+    margin-top: 1rem;
+    width: 45%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  &__content {
+    font-size: 1.4rem;
+    font-weight: 500;
+
+    &-user {
+      color: $color-primary;
+      text-transform: capitalize;
+    }
+
+    &-rounds {
+      color: $color-health;
+    }
+
+    &-link {
+      text-decoration: none;
+      color: $color-white;
+      font-weight: 600;
+      font-size: 1rem;
+      background-color: $color-primary;
+      padding: 0.5rem;
+      border-radius: 0.6rem;
+    }
+  }
+}
+
+.single--ranking{
+    &-container{
+        margin: 0 auto;
+        background-color: $color-white;
+        height: 10rem;
+        color: $color-dark;
+        width: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30rem;
+        padding: 2rem;
+        margin-top: 20rem;
+        border-radius: .3rem;
+        flex-direction: column;
+    }
+    &-content{
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: $color-dark;
+    }
+    &-rounds{
+        color: $color-warning;
+    }
+    &-date{
+        color: $color-dark-1;
+    }
+
+    &-user{
+        color: $color-primary;
+        font-size: 2rem;
+    }
+}

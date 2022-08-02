@@ -4,12 +4,14 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    padding: 1rem;
+
   }
   &__healthbar-container {
     width: 80%;
     padding: 4rem;
     display: flex;
-    justify-content: space-around;
+    justify-content:space-evenly;
     margin: 3rem;
   }
   &__healthbar {
@@ -22,6 +24,21 @@
     border-radius: 0.5rem;
     position: relative;
     overflow: hidden;
+
+    &-label {
+        font-weight: 600;
+        font-size: 1.2rem;
+        color: $color-dark;
+        text-transform: capitalize;
+    }
+
+    &-wrap{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 40%;
+    }
 
     &-current--health {
       display: inline-block;
@@ -47,6 +64,22 @@
     align-content: center;
     justify-items: center;
   }
+
+  &__rounds{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 4rem;
+    &-label{
+        color: $color-dark;
+        font-size: 1.6rem;
+    }
+    &-number{
+        color: #000;
+        font-size: 5rem;
+    }
+  }
+
 }
 
 .btn {
@@ -62,7 +95,13 @@
     &:hover{
         background-color: $color-primary-dark;
         transform: translateY(-3px);
+
+        
     }
+
+  &:active{
+      transform: translateY(-.1rem);
+  }
     &-special{
         filter: brightness(50%);
         &:hover{
