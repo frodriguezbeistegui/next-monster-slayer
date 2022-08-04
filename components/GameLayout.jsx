@@ -11,10 +11,8 @@ export default function GameLayout() {
 
   // Monster will atack every update if rounds is not 0
   useEffect(() => {
-    if(rounds !== 0)
-    monsterAtack(8, 13)
-  }, [rounds])
-  
+    if (rounds !== 0) monsterAtack(8, 13);
+  }, [rounds]);
 
   const displayResult = (result) => {
     const route = {
@@ -23,7 +21,9 @@ export default function GameLayout() {
         rounds,
       },
     };
-    router.push(route);
+    setTimeout(() =>{
+      router.push(route);
+    }, 300)
   };
 
   // Set the controllers to mannage the game behavior
@@ -53,9 +53,7 @@ export default function GameLayout() {
     const value = randomBetween(min, max);
     if (userHealth - value <= 0) {
       setUserHealth(0);
-      setTimeout(()=>{
-        displayResult('lose');
-      }, 1000)
+      displayResult('lose');
     } else setUserHealth(userHealth - value);
   };
 
@@ -63,12 +61,9 @@ export default function GameLayout() {
     const value = randomBetween(min, max);
     if (monsterHealth - value <= 0) {
       setMosterHealth(0);
-      setTimeout(()=>{
-        displayResult('win');
-      }, 1000);
-    }else setMosterHealth(monsterHealth - value);
+      displayResult('win');
+    } else setMosterHealth(monsterHealth - value);
   };
-   
 
   const heal = (min, max) => {
     const value = randomBetween(min, max);
@@ -79,6 +74,8 @@ export default function GameLayout() {
   const specialActive = roundsToSpecial >= 3 ? 'active' : false;
   return (
     <div className="game__container">
+      <h1 className='game-title'>Moster slayer</h1>
+
       <div className="game__healthbar-container">
         <div className="game__healthbar-wrap">
           <label className="game__healthbar-label">User health</label>
@@ -103,14 +100,13 @@ export default function GameLayout() {
         </div>
       </div>
       <div className="game__rounds">
-      <h1 className='game__rounds-label'>Current round</h1>
-      <strong className='game__rounds-number'>{rounds}</strong>
-
+        <h1 className="game__rounds-label">Current round</h1>
+        <strong className="game__rounds-number">{rounds}</strong>
       </div>
 
       <div className="game__controllers">
         <button
-          className="btn btn-atack"
+          className="btn"
           onClick={() => {
             handleAction('atack');
           }}
