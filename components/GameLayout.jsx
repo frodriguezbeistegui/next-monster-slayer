@@ -74,7 +74,7 @@ export default function GameLayout() {
   const specialActive = roundsToSpecial >= 3 ? 'active' : false;
   return (
     <div className="game__container">
-      <h1 className='game-title'>Moster slayer</h1>
+      <h1 className='game-title'>Monster slayer</h1>
 
       <div className="game__healthbar-container">
         <div className="game__healthbar-wrap">
