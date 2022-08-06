@@ -87,7 +87,7 @@ export default function GameLayout() {
             <strong className="game__healthbar-value">{userHealth}%</strong>
           </div>
         </div>
-
+       
         <div className="game__healthbar-wrap">
           <label className="game__healthbar-label">Monster health</label>
           <div className="game__healthbar game__healthbar-moster">
