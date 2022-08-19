@@ -9,7 +9,7 @@ export const getStaticProps = async ({ params }) => {
   return {
     props: {
       data,
-    }
+    },
   };
 };
 
@@ -42,11 +42,15 @@ export default function SingleResult({ data }) {
   const day = date.getDate();
   const dateString = `${month}-${day}-${year}`;
   return (
-
-    <div className='single--ranking-container'> 
-      <p className='single--ranking-content'> <span className='single--ranking-user'>{data.username}</span> has won in <span className="single--ranking-rounds">{data.rounds}</span> at <span className='single--ranking-date' >{dateString}</span></p>
+    <div className="single--ranking-container">
+      <p className="single--ranking-content">
+        {' '}
+        <span className="single--ranking-user">{data.username}</span> has won in{' '}
+        <span className="single--ranking-rounds">{data.rounds}</span> at{' '}
+        <span className="single--ranking-date">{dateString}</span>
+      </p>
       <Link href={'/'}>
-        <a className='button-play-again'>Play again</a>
+        <a className="button-play-again">Play again</a>
       </Link>
     </div>
   );

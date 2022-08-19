@@ -10,6 +10,7 @@ export const getStaticProps = async () => {
       orderByDirection: 'asc',
       perPage: '10',
     });
+
     querySnapshot.forEach((doc) => {
       results.push({
         id: doc.id,
@@ -30,21 +31,24 @@ export const getStaticProps = async () => {
   };
 };
 
-export default function ranking({ results = []}) {
+export default function ranking({ results = [] }) {
   return (
     <div className="rankings-container">
-      <h1 className='rankings-title'>Top 10 ranking</h1>
+      <h1 className="rankings-title">Top 10 ranking</h1>
       {results.map((res, i) => (
-        <div className='ranking-container' key={res.date}>
-            <h2 className='ranking__content-number'>#{i + 1}</h2> 
-            <p className='ranking__content'><span className='ranking__content-user' >{res.username}</span> has won the game within <span className='ranking__content-rounds'>{res.rounds}</span> rounds!</p>
-            <Link href={`/rankings/${res.id}`}>
-              <a className='ranking__content-link'>Watch full result</a>
-            </Link>
+        <div className="ranking-container" key={res.date}>
+          <h2 className="ranking__content-number">#{i + 1}</h2>
+          <p className="ranking__content">
+            <span className="ranking__content-user">{res.username}</span> has won the game within{' '}
+            <span className="ranking__content-rounds">{res.rounds}</span> rounds!
+          </p>
+          <Link href={`/rankings/${res.id}`}>
+            <a className="ranking__content-link">Watch full result</a>
+          </Link>
         </div>
       ))}
-        <Link href={'/'}>
-        <a className='button-play-again'>Play again</a>
+      <Link href={'/'}>
+        <a className="button-play-again">Play again</a>
       </Link>
     </div>
   );

@@ -18,7 +18,7 @@ export const getServerSideProps = async (ctx) => {
 export default function result({ result, rounds }) {
   const [popup, setPopup] = useState(false);
 
-  const router = useRouter()
+  const router = useRouter();
 
   const username = useRef(null);
 
@@ -47,30 +47,42 @@ export default function result({ result, rounds }) {
   };
 
   return (
-    <div className={`result result-${result} `} >
-      <h1 className="result__title">You <span className={`result__title result__title-span-${result}`}>{result}</span>!</h1>
+    <div className={`result result-${result} `}>
+      <h1 className="result__title">
+        You <span className={`result__title result__title-span-${result}`}>{result}</span>!
+      </h1>
       {result === 'win' ? (
-        <div className='result__win-container'>
-          <p className='result__win-text'>You have won in <span className='result__win-rounds'>{rounds}</span> rounds!</p>
-          <button onClick={() => handleClick()} className='result__win-cta' >Publish your result</button>
+        <div className="result__win-container">
+          <p className="result__win-text">
+            You have won in <span className="result__win-rounds">{rounds}</span> rounds!
+          </p>
+          <button onClick={() => handleClick()} className="result__win-cta">
+            Publish your result
+          </button>
         </div>
       ) : null}
       {popup ? (
         <div className="popup">
-          <label htmlFor="username" className='popup__label' >Username</label>
+          <label htmlFor="username" className="popup__label">
+            Username
+          </label>
           <input
             type="text"
             id="username"
             placeholder="Your username"
             ref={username}
             onChange={() => console.log(username.current.value)}
-            className='popup__input'
+            className="popup__input"
           />
         </div>
       ) : null}
       <div className="result__links">
-        <Link href={'/'} ><a className='result__link'>Play again!</a></Link>
-        <Link href={'/rankings'} ><a className='result__link'>Watch top rankings</a></Link>
+        <Link href={'/'}>
+          <a className="result__link">Play again!</a>
+        </Link>
+        <Link href={'/rankings'}>
+          <a className="result__link">Watch top rankings</a>
+        </Link>
       </div>
     </div>
   );

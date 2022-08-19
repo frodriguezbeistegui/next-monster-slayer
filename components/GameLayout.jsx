@@ -31,7 +31,6 @@ export default function GameLayout() {
     // every click adds a round and triggers a moster attack
     setRounds(rounds + 1);
     setRoundsToSpecial(roundsToSpecial + 1);
-    console.log(userHealth);
     // determinate and run the action that the user want to do
     switch (action) {
       case 'heal':
@@ -72,6 +71,8 @@ export default function GameLayout() {
   };
 
   const specialActive = roundsToSpecial >= 3 ? 'active' : false;
+
+
   return (
     <div className="game__container">
       <h1 className='game-title'>Monster slayer</h1>
