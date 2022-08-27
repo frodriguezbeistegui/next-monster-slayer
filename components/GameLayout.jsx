@@ -3,15 +3,15 @@ import { useEffect, useState } from 'react';
 
 export default function GameLayout() {
   const [userHealth, setUserHealth] = useState(100);
-  const [monsterHealth, setMosterHealth] = useState(100);
+  const [monsterHealth, setMonsterHealth] = useState(100);
   const [rounds, setRounds] = useState(0);
   const [roundsToSpecial, setRoundsToSpecial] = useState(0);
 
   const router = useRouter();
 
-  // Monster will atack every update if rounds is not 0
+  // Monster will attack every update if rounds is not 0
   useEffect(() => {
-    if (rounds !== 0) monsterAtack(8, 13);
+    if (rounds !== 0) monsterAttack(8, 13);
   }, [rounds]);
 
   const displayResult = (result) => {
@@ -21,14 +21,14 @@ export default function GameLayout() {
         rounds,
       },
     };
-    setTimeout(() =>{
+    setTimeout(() => {
       router.push(route);
-    }, 300)
+    }, 300);
   };
 
-  // Set the controllers to mannage the game behavior
+  // Set the controllers to manage the game behavior
   const handleAction = async (action) => {
-    // every click adds a round and triggers a moster attack
+    // every click adds a round and triggers a monster attack
     setRounds(rounds + 1);
     setRoundsToSpecial(roundsToSpecial + 1);
     // determinate and run the action that the user want to do
@@ -36,11 +36,11 @@ export default function GameLayout() {
       case 'heal':
         heal(11, 16);
         break;
-      case 'atack':
-        userAtack(7, 11);
+      case 'attack':
+        userAttack(7, 11);
         break;
       case 'special':
-        userAtack(10, 15);
+        userAttack(10, 15);
         setRoundsToSpecial(0);
         break;
     }
@@ -48,7 +48,7 @@ export default function GameLayout() {
 
   const randomBetween = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 
-  const monsterAtack = (min, max) => {
+  const monsterAttack = (min, max) => {
     const value = randomBetween(min, max);
     if (userHealth - value <= 0) {
       setUserHealth(0);
@@ -56,12 +56,12 @@ export default function GameLayout() {
     } else setUserHealth(userHealth - value);
   };
 
-  const userAtack = (min, max) => {
+  const userAttack = (min, max) => {
     const value = randomBetween(min, max);
     if (monsterHealth - value <= 0) {
-      setMosterHealth(0);
+      setMonsterHealth(0);
       displayResult('win');
-    } else setMosterHealth(monsterHealth - value);
+    } else setMonsterHealth(monsterHealth - value);
   };
 
   const heal = (min, max) => {
@@ -72,15 +72,14 @@ export default function GameLayout() {
 
   const specialActive = roundsToSpecial >= 3 ? 'active' : false;
 
-
   return (
     <div className="game__container">
-      <h1 className='game-title'>Monster slayer</h1>
+      <h1 className="game-title">Monster slayer</h1>
 
       <div className="game__healthbar-container">
         <div className="game__healthbar-wrap">
           <label className="game__healthbar-label">User health</label>
-          <div className="game__healthbar game__healthhbar-user">
+          <div className="game__healthbar game__healthbar-user">
             <div
               style={{ width: `${userHealth}%` }}
               className="game__healthbar-current--health"
@@ -88,10 +87,10 @@ export default function GameLayout() {
             <strong className="game__healthbar-value">{userHealth}%</strong>
           </div>
         </div>
-       
+
         <div className="game__healthbar-wrap">
           <label className="game__healthbar-label">Monster health</label>
-          <div className="game__healthbar game__healthbar-moster">
+          <div className="game__healthbar game__healthbar-monster">
             <div
               style={{ width: `${monsterHealth}%` }}
               className="game__healthbar-current--health"
@@ -109,10 +108,10 @@ export default function GameLayout() {
         <button
           className="btn"
           onClick={() => {
-            handleAction('atack');
+            handleAction('attack');
           }}
         >
-          Atack
+          Attack
         </button>
         <button
           disabled={!specialActive}
@@ -121,7 +120,7 @@ export default function GameLayout() {
             handleAction('special');
           }}
         >
-          Special Atack
+          Special Attack
         </button>
         <button
           className="btn btn-heal"
